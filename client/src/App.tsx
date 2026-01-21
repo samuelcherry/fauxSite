@@ -1,18 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Header from './components/Header'
-import MainContent from './components/MainContent'
+import Home from './components/Home';
+import Login from './components/Login';
+import Register from './components/Register';
+import {Routes, Route} from 'react-router-dom';
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-		<div className="flex flex-col h-screen bg-sky-50">
-    		<Header/>
-	  		<MainContent/>
-    	</div>
+		<Routes>
+			<Route path="/" element={<Home />}/>
+			<Route path="/login" element={<Login />}/>
+			<Route path="/register" element={<Register />}/>
+		</Routes>
 	</>
-  )
+  );
 } export default App
