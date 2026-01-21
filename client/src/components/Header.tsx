@@ -1,9 +1,12 @@
-
+import {useNavigate} from "react-router-dom"
 
 const Header = () => {
 
+	let navigate = useNavigate();
+
 	const handleLogOut = () => {
 		console.log("logged out");
+		navigate("/login");
 	}
 
 	return (

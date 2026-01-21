@@ -7,16 +7,18 @@ const Login = () => {
 	const handleLogin = (e) =>{
 		e.preventDefault();
 		console.log("Logged In");
+		navigate("/");
 	}
 
-	const handleRegister = () => {
+	const handleRegister = (e) => {
+		e.preventDefault();
 		navigate("/register");
 	}
 
 	return (
 		<>
 			<div className="flex pt-30 pb-30 bg-sky-200 m-4 p-4 rounded-lg flex-1 justify-center">{/*form container*/}
-				<form className="bg-sky-500 justify-center rounded-md"onSubmit={handleLogin}>{/* form */}
+				<div className="bg-sky-500 justify-center rounded-md">{/* form */}
 					<div className="flex flex-col"> {/* input section */}
 						<input
 							type="email"
@@ -31,7 +33,7 @@ const Login = () => {
 					</div>
 					<div className="flex justify-end m-2"> {/* button section */}
 						<button
-							type="submit"
+							onClick={handleLogin}
 							className="bg-white p-2 m-2 rounded-lg"
 						>
 						Login
@@ -41,7 +43,7 @@ const Login = () => {
 							className="bg-white p-2 m-2 rounded-lg"
 						>Register</button>
 					</div>
-				</form>
+				</div>
 			</div>
 		</>
 	)

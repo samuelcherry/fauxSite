@@ -9,7 +9,9 @@ const Register = () => {
 		navigate("/login")
 	}
 
-	const handleRegister = () => {
+	const handleRegister = (e) => {
+		e.preventDefault()
+		navigate("/login")
 		console.log("REGISTER")
 	}
 
