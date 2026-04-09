@@ -28,13 +28,14 @@ const Register = () => {
         email: email,
       }),
     });
-    const data = await response.json();
-    console.log("data: ", data);
+
     if (!response.ok) {
-      console.log("in error: ", response);
+      const text = await response.text();
+      console.log("Error response:", text);
       throw new Error("Failed to add user");
     }
-    return response.json();
+    const data = await response.json();
+    return data;
   };
 
   return (
