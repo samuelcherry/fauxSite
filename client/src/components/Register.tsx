@@ -35,6 +35,7 @@ const Register = () => {
       throw new Error("Failed to add user");
     }
     const data = await response.json();
+    navigate("/login");
     return data;
   };
 
