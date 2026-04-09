@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Register = () => {
-  const [username] = useState("");
-  const [email] = useState("");
-  const [password] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -23,9 +23,9 @@ const Register = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: username,
-        password: password,
-        email: email,
+        username,
+        password,
+        email,
       }),
     });
 
@@ -53,16 +53,22 @@ const Register = () => {
             <input
               type="text"
               placeholder="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="bg-white p-2 m-2"
             />
             <input
               type="email"
               placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="bg-white p-2 m-2"
             />
             <input
               type="password"
               placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="bg-white p-2 m-2"
             />
           </div>
