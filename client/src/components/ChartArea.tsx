@@ -17,7 +17,9 @@ export default function BTCChart() {
   const [data, setData] = useState<PricePoint[]>([]);
 
   useEffect(() => {
-    const ws = new WebSocket("wss://stream.binance.com/ws/btcusdt@trade");
+    const ws = new WebSocket(
+      "wss://data-stream.binance.vision/ws/btcusdt@trade",
+    );
 
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
