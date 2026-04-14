@@ -43,7 +43,7 @@ export default function BTCChart() {
     <LineChart width={600} height={300} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="time" />
-      <YAxis domain={["auto auto"]} />
+      <YAxis domain={["auto", "auto"]} />
       <Tooltip />
       <Line type="monotone" dataKey="price" dot={false} />
     </LineChart>
