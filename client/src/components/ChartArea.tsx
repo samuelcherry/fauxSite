@@ -39,7 +39,7 @@ export default function BTCChart() {
           return newData.slice(-50);
         });
       }
-    }, 60000);
+    }, 10000);
     return () => {
       ws.close();
       clearInterval(interval);
