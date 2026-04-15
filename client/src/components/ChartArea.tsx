@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import {
   LineChart,
+  Line,
   XAxis,
   YAxis,
   Tooltip,
@@ -87,6 +88,13 @@ export default function BTCChart() {
         labelStyle={{ color: "#94a3b8" }}
         formatter={(value) => [`$${(value as number).toFixed(2)}`, "BTC"]}
         cursor={{ stroke: "#475569", strokeWidth: 1 }}
+      />
+      <Line
+        type="monotone"
+        dataKey="price"
+        stroke="#22c55e"
+        dot={false}
+        isAnimationActive={false}
       />
 
       <Area
