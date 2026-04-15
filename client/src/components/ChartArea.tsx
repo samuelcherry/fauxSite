@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   LineChart,
   Line,
@@ -15,6 +15,7 @@ type PricePoint = {
 
 export default function BTCChart() {
   const [data, setData] = useState<PricePoint[]>([]);
+  const latestPrice = useRef<number | null>(null);
 
   useEffect(() => {
     const ws = new WebSocket(
@@ -23,20 +24,26 @@ export default function BTCChart() {
 
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
-      const price = parseFloat(message.p);
-
-      setData((prev) => {
-        const newData = [
-          ...prev,
-          {
-            time: new Date().toLocaleTimeString(),
-            price,
-          },
-        ];
-        return newData.slice(-50);
-      });
+      latestPrice.current = parseFloat(message.p);
     };
-    return () => ws.close();
+    const interval = setInterval(() => {
+      if (latestPrice.current !== null) {
+        setData((prev) => {
+          const newData = [
+            ...prev,
+            {
+              time: new Date().toLocaleTimeString(),
+              price: latestPrice.current!,
+            },
+          ];
+          return newData.slice(-50);
+        });
+      }
+    }, 1000);
+    return () => {
+      ws.close();
+      clearInterval(interval);
+    };
   }, []);
 
   return (
