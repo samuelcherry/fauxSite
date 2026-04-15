@@ -6,6 +6,7 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
+  Area,
 } from "recharts";
 
 type PricePoint = {
@@ -39,7 +40,7 @@ export default function BTCChart() {
           return newData.slice(-50);
         });
       }
-    }, 1000);
+    }, 60000);
     return () => {
       ws.close();
       clearInterval(interval);
@@ -47,12 +48,55 @@ export default function BTCChart() {
   }, []);
 
   return (
-    <LineChart width={600} height={300} data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="time" />
-      <YAxis domain={["auto", "auto"]} />
-      <Tooltip />
-      <Line type="monotone" dataKey="price" dot={false} />
+    <LineChart
+      width={800}
+      height={400}
+      data={data}
+      style={{ background: "#0f172a", borderRadius: "8px" }}
+    >
+      <defs>
+        <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#22c55e" stopOpacity={0.8} />
+          <stop offset="100%" stopColor="#22c55e" stopOpacity={0} />
+        </linearGradient>
+      </defs>
+
+      <CartesianGrid stroke="#1e293b" strokeDasharray="2 2" />
+
+      <XAxis
+        dataKey="time"
+        stroke="#94a3b8"
+        tick={{ fontSize: 12 }}
+        tickLine={false}
+        axisLine={false}
+      />
+
+      <YAxis
+        domain={["auto", "auto"]}
+        stroke="#94a3b8"
+        tick={{ fontSize: 12 }}
+        tickLine={false}
+        axisLine={false}
+      />
+
+      <Tooltip
+        contentStyle={{
+          backgroundColor: "#020617",
+          border: "1px solid #1e293b",
+          borderRadius: "6px",
+        }}
+        labelStyle={{ color: "#94a3b8" }}
+        formatter={(value) => [`$${(value as number).toFixed(2)}`, "BTC"]}
+        cursor={{ stroke: "#475569", strokeWidth: 1 }}
+      />
+
+      <Area
+        type="monotone"
+        dataKey="price"
+        stroke="#22c55e"
+        fill="url(#priceGradient)"
+        isAnimationActive={false}
+      />
     </LineChart>
   );
 }
